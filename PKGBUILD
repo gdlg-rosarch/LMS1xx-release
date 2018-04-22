@@ -1,32 +1,45 @@
 # Script generated with Bloom
-pkgdesc="ROS - @(Description)"
-@[if Homepage and Homepage != '']url='@(Homepage)'@[end if]
+pkgdesc="ROS - The lms1xx package contains a basic ROS driver for the SICK LMS1xx line of LIDARs."
+url='http://ros.org/wiki/LMS1xx'
 
-pkgname='@(Package)'
-pkgver='@(Version)_@(Pkgrel)'
+pkgname='ros-kinetic-lms1xx'
+pkgver='0.1.6_1'
 pkgrel=1
 arch=('any')
-license=(@[for p in Licenses]'@p'@\n@[end for])
+license=('LGPL'
+)
 
-makedepends=(@[for p in BuildDepends]'@p'@\n@[end for])
+makedepends=('ros-kinetic-catkin'
+'ros-kinetic-rosconsole-bridge'
+'ros-kinetic-roscpp'
+'ros-kinetic-roscpp-serialization'
+'ros-kinetic-roslaunch'
+'ros-kinetic-roslint'
+'ros-kinetic-rosunit'
+'ros-kinetic-sensor-msgs'
+)
 
-depends=(@[for p in Depends]'@p'@\n@[end for])
+depends=('ros-kinetic-rosconsole-bridge'
+'ros-kinetic-roscpp'
+'ros-kinetic-roscpp-serialization'
+'ros-kinetic-sensor-msgs'
+)
 
-conflicts=(@[for p in Conflicts]'@p'@\n@[end for])
-replaces=(@[for p in Replaces]'@p'@\n@[end for])
+conflicts=()
+replaces=()
 
-_dir=@(Name)
+_dir=lms1xx
 source=()
 md5sums=()
 
 prepare() {
-    cp -R $startdir/@(Name) $srcdir/@(Name)
+    cp -R $startdir/lms1xx $srcdir/lms1xx
 }
 
 build() {
   # Use ROS environment variables
   source /usr/share/ros-build-tools/clear-ros-env.sh
-  [ -f /opt/ros/@(ROSDistribution)/setup.bash ] && source /opt/ros/@(ROSDistribution)/setup.bash
+  [ -f /opt/ros/kinetic/setup.bash ] && source /opt/ros/kinetic/setup.bash
 
   # Create build directory
   [ -d ${srcdir}/build ] || mkdir ${srcdir}/build
@@ -39,7 +52,7 @@ build() {
   cmake ${srcdir}/${_dir} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCATKIN_BUILD_BINARY_PACKAGE=ON \
-        -DCMAKE_INSTALL_PREFIX=/opt/ros/@(ROSDistribution) \
+        -DCMAKE_INSTALL_PREFIX=/opt/ros/kinetic \
         -DPYTHON_EXECUTABLE=/usr/bin/python2 \
         -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 \
         -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so \
